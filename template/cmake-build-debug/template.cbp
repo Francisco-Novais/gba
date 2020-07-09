@@ -8,25 +8,23 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/PROJETO/template/cmake-build-debug"/>
+				<Option working_dir="C:/gbaRepo/gba/template/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 all"/>
-					<CompileFile command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<Build command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 all"/>
+					<CompileFile command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="template">
-				<Option output="C:/PROJETO/template/cmake-build-debug/template.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/PROJETO/template/cmake-build-debug"/>
+				<Option output="C:/gbaRepo/gba/template/cmake-build-debug/template.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/gbaRepo/gba/template/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="msvc8"/>
 				<Compiler>
-					<Add directory="C:/devkitPro/libgba/include"/>
-					<Add directory="C:/devkitPro/libtonc/include"/>
-					<Add directory="C:/PROJETO/template/include"/>
+					<Add directory="C:/gbaRepo/gba/template/include"/>
 					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.26.28801\ATLMFC\include"/>
 					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.26.28801\include"/>
 					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
@@ -36,22 +34,20 @@
 					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 template"/>
-					<CompileFile command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<Build command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 template"/>
+					<CompileFile command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="template/fast">
-				<Option output="C:/PROJETO/template/cmake-build-debug/template.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/PROJETO/template/cmake-build-debug"/>
+				<Option output="C:/gbaRepo/gba/template/cmake-build-debug/template.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/gbaRepo/gba/template/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="msvc8"/>
 				<Compiler>
-					<Add directory="C:/devkitPro/libgba/include"/>
-					<Add directory="C:/devkitPro/libtonc/include"/>
-					<Add directory="C:/PROJETO/template/include"/>
+					<Add directory="C:/gbaRepo/gba/template/include"/>
 					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.26.28801\ATLMFC\include"/>
 					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.26.28801\include"/>
 					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
@@ -61,40 +57,40 @@
 					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 template/fast"/>
-					<CompileFile command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<Build command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 template/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="C:/PROJETO/template/cmake-build-debug"/>
+				<Option working_dir="C:/gbaRepo/gba/template/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 edit_cache"/>
-					<CompileFile command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<Build command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 edit_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/PROJETO/template/cmake-build-debug"/>
+				<Option working_dir="C:/gbaRepo/gba/template/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f C:\PROJETO\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<Build command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\gbaRepo\gba\template\cmake-build-debug\Makefile VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/PROJETO/template/Makefile">
+		<Unit filename="C:/gbaRepo/gba/template/Makefile">
 			<Option target="template"/>
 		</Unit>
-		<Unit filename="C:/PROJETO/template/source/template.c">
+		<Unit filename="C:/gbaRepo/gba/template/source/template.c">
 			<Option target="template"/>
 		</Unit>
-		<Unit filename="C:/PROJETO/template/CMakeLists.txt">
+		<Unit filename="C:/gbaRepo/gba/template/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

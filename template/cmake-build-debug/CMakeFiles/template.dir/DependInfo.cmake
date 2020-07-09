@@ -4,14 +4,12 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "C:/PROJETO/template/source/template.c" "C:/PROJETO/template/cmake-build-debug/CMakeFiles/template.dir/source/template.c.obj"
+  "C:/gbaRepo/gba/template/source/template.c" "C:/gbaRepo/gba/template/cmake-build-debug/CMakeFiles/template.dir/source/template.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "MSVC")
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
-  "C:/devkitPro/libgba/include"
-  "C:/devkitPro/libtonc/include"
   "../include"
   )
 

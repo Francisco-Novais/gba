@@ -7,6 +7,6 @@ add_executable(template
         source/template.c
         Makefile)
 
-include_directories(C:/devkitPro/libgba/include)
-include_directories(C:/devkitPro/libtonc/include)
+#include_directories(C:/devkitPro/libgba/include)
+#include_directories(C:/devkitPro/libtonc/include)
 include_directories(include)

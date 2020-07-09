@@ -1,1 +1,4 @@
-CMakeLists.txt not found in C:\PROJETO\template Select CMakeLists.txt file...
+"C:\Program Files\JetBrains\CLion 2020.1.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - NMake Makefiles" C:\gbaRepo\gba\template
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/gbaRepo/gba/template/cmake-build-debug
