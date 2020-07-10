@@ -24,6 +24,8 @@
 				<Option type="1"/>
 				<Option compiler="msvc8"/>
 				<Compiler>
+					<Add directory="C:/devkitPro/libgba/include"/>
+					<Add directory="C:/devkitPro/libtonc/include"/>
 					<Add directory="C:/gbaRepo/gba/template/include"/>
 					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.26.28801\ATLMFC\include"/>
 					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.26.28801\include"/>
@@ -47,6 +49,8 @@
 				<Option type="1"/>
 				<Option compiler="msvc8"/>
 				<Compiler>
+					<Add directory="C:/devkitPro/libgba/include"/>
+					<Add directory="C:/devkitPro/libtonc/include"/>
 					<Add directory="C:/gbaRepo/gba/template/include"/>
 					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.26.28801\ATLMFC\include"/>
 					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\VC\Tools\MSVC\14.26.28801\include"/>

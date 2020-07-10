@@ -10,6 +10,8 @@ set(CMAKE_C_COMPILER_ID "MSVC")
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH
+  "C:/devkitPro/libgba/include"
+  "C:/devkitPro/libtonc/include"
   "../include"
   )
 
