@@ -6,5 +6,5 @@ C_FLAGS = /DWIN32 /D_WINDOWS /Zi /Ob0 /Od /RTC1 -MDd
 
 C_DEFINES = 
 
-C_INCLUDES = -IC:\devkitPro\libgba\include -IC:\devkitPro\libtonc\include -IC:\gbaRepo\gba\template\include 
+C_INCLUDES = -IC:\gbaRepo\gba\template\include 
 
