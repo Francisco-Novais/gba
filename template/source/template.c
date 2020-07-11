@@ -1,6 +1,7 @@
 #include <string.h>
 #include "toolbox.h"
 #include "happy.h"
+#include "brin-full.h"
 
 OBJ_ATTR obj_buffer[128];
 OBJ_AFFINE *obj_aff_buffer = (OBJ_AFFINE *) obj_buffer;
@@ -10,6 +11,7 @@ s32 isJumping = 0;
 s32 gravity = 1;
 s32 currentSpeed = 8;
 s32 firstSpeed = 8;
+int x = 0;
 
 void jump() {
     if (!isJumping) {
@@ -21,7 +23,7 @@ void jump() {
 
     if (currentSpeed <= -firstSpeed) { //the jump has ended and the player is on the ground
         isJumping = 0;
-    }else{
+    } else {
         playerLocation[1] -= currentSpeed;
     }
 }
@@ -53,7 +55,7 @@ _Noreturn void obj_test() {
 
         // move left
         // flip horizontally if looking to the right
-        if (key_held(KEY_LEFT)|| key_hit(KEY_LEFT) ) {
+        if (key_held(KEY_LEFT) || key_hit(KEY_LEFT)) {
             playerLocation[0] += key_tri_horz();
             if (!isTurnedLeft) {
                 happy->attr1 ^= ATTR1_HFLIP;
@@ -63,7 +65,7 @@ _Noreturn void obj_test() {
 
         // move right
         // flip horizontally if looking to the left
-        if (key_held(KEY_RIGHT) || key_hit(KEY_RIGHT) ) {
+        if (key_held(KEY_RIGHT) || key_hit(KEY_RIGHT)) {
             playerLocation[0] += key_tri_horz();
             if (isTurnedLeft) {
                 happy->attr1 ^= ATTR1_HFLIP;
@@ -76,6 +78,20 @@ _Noreturn void obj_test() {
             jump();
         }
 
+        //background right scroller
+        if(playerLocation[0] >= 110){
+            x += 4;
+            REG_BG0HOFS = x;
+            playerLocation[0] = 107;
+        }
+
+        //background left scroller
+        if(playerLocation[0] <= 40){
+            x -= 4;
+            REG_BG0HOFS = x;
+            playerLocation[0] = 43;
+        }
+
         // Hey look, it's one of them build macros!
         // happy->attr2= ATTR2_BUILD(tid, pb, 0);
         obj_set_pos(happy, playerLocation[0], playerLocation[1]);
@@ -84,16 +100,37 @@ _Noreturn void obj_test() {
     }
 }
 
-int main() {
+void loadBackGround(){
+    // Load palette
+    memcpy(pal_bg_mem, brin_fullPal, brin_fullPalLen);
+    // Load tiles into CBB 0
+    memcpy(&tile_mem[0][0], brin_fullMetaTiles, brin_fullMetaTilesLen);
+    // Load map into SBB 30
+    memcpy(&se_mem[30][0], brin_fullMetaMap, brin_fullMetaMapLen);
 
+    // set up BG0 for a 4bpp 64x32t map, using
+    //   using charblock 0 and screenblock 31
+    REG_BG0CNT = BG_CBB(0) | BG_SBB(30) | BG_4BPP | BG_REG_64x32;
+    REG_DISPCNT = DCNT_MODE0 | DCNT_BG0;
+
+    REG_BG0HOFS = 0;
+    REG_BG0VOFS= 64;
+}
+
+void loadSprite(){
     // Places the glyphs of a 4bpp boxed happy sprite
     //   into LOW obj memory (cbb == 4)
     memcpy(&tile_mem[4][0], happyTiles, happyTilesLen);
     memcpy(pal_obj_mem, happyPal, happyPalLen);
 
     oam_init(obj_buffer, 128);
-    REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D;
+    REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_BG0;
+}
 
+int main() {
+
+    loadBackGround();
+    loadSprite();
     obj_test();
 
     while (1);
