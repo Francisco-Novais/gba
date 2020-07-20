@@ -9,13 +9,18 @@
 OBJ_ATTR obj_buffer[128];
 OBJ_AFFINE *obj_aff_buffer = (OBJ_AFFINE *) obj_buffer;
 
-int const firstHorizontalOffset = 10;
+int const firstHorizontalOffset = 32;
 int const firstVerticalOffset = 64;
 int currentHorizontalOffset = firstHorizontalOffset;
 int currentVerticalOffset = firstVerticalOffset;
+BG_POINT bg0_pt = {0, 0};
+SCR_ENTRY *bg0_map = se_mem[2];
+u32 tid = 0, pb = 0;        // tile id, pal-bank
+
 
 s32 playerLocationX;
 s32 playerLocationY;
+s32 se_curr, se_prev;
 s32 isJumping = 0;
 s32 gravity = 1;
 s32 verticalSpeed = 6;
@@ -47,7 +52,7 @@ void jump() {
         }
     }
 
-    if (!collisionGround && verticalSpeed != firstVerticalSpeed) { // hits the ground
+    if (collisionGround && verticalSpeed != firstVerticalSpeed) { // hits the ground
         isJumping = 0; //stops jumping
     } else {
         playerLocationY -= verticalSpeed;
@@ -60,12 +65,46 @@ void run() {
     }
 }
 
+u32 se_index(u32 tx, u32 ty, u32 pitch) {
+    u32 sbb = ((tx >> 5) + (ty >> 5) * (pitch >> 5));
+
+    return sbb * 1024 + ((tx & 31) + (ty & 31) * 32);
+}
+
 //only works for the first half of the map due to the array mappMap[] being organized in a special way
 s32 checkCollision(s32 coordX, s32 coordY, s32 spriteOffsetX, s32 spriteOffSetY) {
 
-    return (mappMap[32 * (coordY + spriteOffSetY) + (coordX + spriteOffsetX)] != 0x00000000);
+    u32 tileOffset = (coordX) / 15; // gives the screen entry;
+    if (coordX % 15 == 0 && key_held(KEY_LEFT)) { //if is standing on the edge of the screen entry
+        tileOffset--;
+    }
 
+    return (mappMap[32 * (coordY + spriteOffSetY + 16 * tileOffset) + (coordX + spriteOffsetX)] != 0x00000000);
 }
+
+
+/* for (i = 0; i < 16; i++) {
+     constant = i;// * 32;
+     int flag = 1;
+     for (j = 0; j < 32; ++j) {
+         if (j >= 16 && flag) {
+             constant += 496;
+             flag = 0;
+         }
+
+         if (mappMap[constant] == 0) {
+             newMap[i][j] = 0; // fillSquare(i*16,j*16,0);
+         } else {
+             newMap[i][j] = 1; // fillSquare(i*16,j*16,1);
+         }
+
+         constant++;
+     }
+
+
+     return (mappMap[32 * (coordY + spriteOffSetY) + (coordX + spriteOffsetX)] != 0x00000000);
+*/
+
 
 /* testing a few sprite things
  D-pad: move and horizontal flip
@@ -77,7 +116,6 @@ _Noreturn void obj_test() {
     playerLocationX = 10; //x = 10
     playerLocationY = 100; // y = 127
 
-    u32 tid = 0, pb = 0;        // tile id, pal-bank
 
     OBJ_ATTR *happy = &obj_buffer[0];
     obj_set_attr(happy,
@@ -117,20 +155,21 @@ _Noreturn void obj_test() {
             }
         }
 
+        //playerLocationY += key_tri_vert();
         //has a roof
-        if (collisionRoof) {
+        /*if (collisionLeft) {
             happy->attr1 ^= ATTR1_VFLIP;
         }
 
         //has a wall on the way
-        if (collisionGround) {
+        if (collisionRight) {
             pb = 1;
         } else {
             pb = 0;
-        }
+        }*/
 
         //simple jump with gravity (no collisionGround)
-        if ((key_hit(KEY_UP) || isJumping) && !collisionRoof) {
+        if ((key_hit(KEY_UP) || key_held(KEY_UP) || isJumping) && !collisionRoof) {
             jump();
         }
 
@@ -145,7 +184,7 @@ _Noreturn void obj_test() {
         if (playerLocationX >= 110 && !collisionRight) {
             x += horizontalSpeed;
             REG_BG0HOFS = x + firstHorizontalOffset; // dx is the offset
-            currentHorizontalOffset = x + firstHorizontalOffset; // saves the value of the ofset
+            currentHorizontalOffset = x + firstHorizontalOffset; // saves the value of the offset
             if (horizontalSpeed == 2) {
                 playerLocationX = 110 - horizontalSpeed + 1; // inbetween frame
             } else {
@@ -166,13 +205,13 @@ _Noreturn void obj_test() {
         }
 
         // get the map coords
-        int coordX = (currentHorizontalOffset + playerLocationX) / 16;
-        int coordY = (currentVerticalOffset + playerLocationY) / 16;
+        int coordX = (currentHorizontalOffset + playerLocationX) >> 4; // divide by 16
+        int coordY = (currentVerticalOffset + playerLocationY) >> 4;
 
         //x+1 (right wall)
         if (checkCollision(coordX, coordY, 1, 0) || checkCollision(coordX, coordY, 1, 1)) {
             collisionRight = 1;
-            if (!collisionRoof) {
+            if (collisionRoof && collisionGround) {
                 playerLocationX--;
             }
         } else {
@@ -182,8 +221,8 @@ _Noreturn void obj_test() {
         //x-1 (left wall)
         if (checkCollision(coordX, coordY, 0, 0) || checkCollision(coordX, coordY, 0, 1)) {
             collisionLeft = 1;
-            if (!collisionRoof) {
-                playerLocationX++;;
+            if (collisionRoof && collisionGround) {
+                playerLocationX++;
             }
 
         } else {
@@ -193,9 +232,7 @@ _Noreturn void obj_test() {
         //y-1 (roof)
         if (checkCollision(coordX, coordY, 0, 0) || checkCollision(coordX, coordY, 1, 0)) {
             collisionRoof = 1;
-            if (!collisionLeft && !collisionRight) {
-                playerLocationY++;
-            }
+            playerLocationY++;
         } else {
             collisionRoof = 0;
         }
@@ -203,15 +240,17 @@ _Noreturn void obj_test() {
         //y+1 (ground)
         if (checkCollision(coordX, coordY, 0, 1) || checkCollision(coordX, coordY, 1, 1)) {
             collisionGround = 1;
-            if (!collisionLeft && !collisionRight) {
-                playerLocationY--;
+            if ((!collisionLeft && !collisionRoof) || (!collisionRight && !collisionRoof) ||
+                (collisionRight && collisionLeft)) {
+                playerLocationY -= 2;
             }
         } else {
             collisionGround = 0;
         }
 
+
         //default gravity
-        if (!collisionGround && !isJumping) {
+        if (((!collisionGround && !collisionLeft) || (!collisionGround && !collisionRight)) && !isJumping ) {
             playerLocationY += gravity;
         }
 
@@ -230,11 +269,12 @@ void loadBackGround() {
     // Load tiles into CBB 0
     memcpy(&tile_mem[0][0], mappTiles, mappTilesLen);
     // Load map into SBB 30
-    memcpy(&se_mem[30][0], mappMap, mappMapLen);
+    memcpy(&se_mem[2][0], mappMap, mappMapLen);
+
 
     // set up BG0 for a 4bpp 64x32t map, using
     //   using charblock 0 and screenblock 31
-    REG_BG0CNT = BG_CBB(0) | BG_SBB(30) | BG_4BPP | BG_REG_64x32;
+    REG_BG0CNT = BG_CBB(0) | BG_SBB(2) | BG_4BPP | BG_REG_64x32;
     REG_DISPCNT = DCNT_MODE0 | DCNT_BG0;
 
 }
@@ -242,8 +282,8 @@ void loadBackGround() {
 void loadSprite() {
     // Places the glyphs of a 4bpp boxed happy sprite
     //   into LOW obj memory (cbb == 4)
-    memcpy(&tile_mem[4][0], happySquareTiles, happySquareTilesLen);
-    memcpy(pal_obj_mem, happySquarePal, happySquarePalLen);
+    memcpy(&tile_mem[4][0], happyTiles, happyTilesLen);
+    memcpy(pal_obj_mem, happyPal, happyPalLen);
 
     oam_init(obj_buffer, 128);
     REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D | DCNT_BG0;
